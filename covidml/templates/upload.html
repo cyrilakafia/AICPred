@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Upload
+{% endblock %}
+
+
+{% block content %}
+    <div class="mb-5 py-3 px-5 rounded bg-white">
+        <div class="dark-test size-h2-thin mb-4">
+            <br>
+            <h6>PERFORM A PREDICTION</h6>
+        </div>
+        <form action="" method="POST" style="color: white">
+            {{ form.hidden_tag() }}
+            <div class = "mb3-3 dark-text">
+                {{ form.molecule_id.label(class="form-label bold-text") }}
+                {{ form.molecule_id(class="form-control", id = "molecule_id", placeholder="54670067" )}}
+
+                {{ form.smiles.label(class="form-label bold-text") }}
+                {{ form.smiles(class="form-control", id = "smiles", placeholder="C(C(C1C(=C(C(=O)O1)O)O)O)O") }}
+
+                <br>
+
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
+
+    {% if results %}
+        <div class="mb-5 py-3 px-5 rounded bg-white">
+            <div class="dark-test size-h2-thin mb-4">
+                <br>
+                <h6>RESULTS</h6>
+            </div>
+
+            <!-- <div class = "mb3-3 dark-text">
+                <div class="bold-text">SMILES</div>
+                <div class="mb-3">{{ form.smiles }}</div>
+            </div> -->
+            
+            <table class = "table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope = "col">Molecule ID</th>
+                        <th scope = "col">Activity</th>
+                        <th scope = "col">Confidence</th>
+                        <th scope = "col">Applicability Domain</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ results.molecule_id }}</td>
+                        <td>{{ results.activity }}</td>
+                        <td>{{ results.confidence }}</td>
+                        <td>{{ 'N/A' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    
+{% endblock %}
