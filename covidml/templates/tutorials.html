@@ -1,5 +1,41 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}
-    Tutorials
+  Tutorials
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tutorial.css') }}">
+{% endblock %}
+
+{% block style %}
+  <style>
+    .tutorial-section {
+      padding-inline: var(--content-padding-inline);
+      padding-block: 2em;
+      display: grid;
+      gap: 1em;
+    }
+
+    .tutorial-section__step h3 {
+      font-size: 1.25rem;
+      font-weight: var(--fw-medium);
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="tutorial-section">
+    <h2 class="section-title">Getting started with AICPred</h2>
+
+    {% for step in steps %}
+      <div class="tutorial-section__step">
+        <h3>{{step.title}}</h3>
+        <img src="{{step.img}}" alt="">
+        <p>{{step.text}}</p>
+      </div>
+    {% endfor %}
+
+  </div>
 {% endblock %}

@@ -1,19 +1,76 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}
-    Home
+    
+{% block link %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
 {% endblock %}
 
 
-{% block content %}
-<div style="padding:0 0 10px 30px;">
-    <br>
-    <h1>ACICpred</h1>
-    <p>ACICPred is a web application for predicting anti-inflammatory molecules capable of ameliorating the cytokine storm by inhibiting the toll-like receptor 4 (TLR4)
-        The machine learning models were trained on 196,655 TLR4 inhibitors and non-inhibitors 
-        XGBoost (XGB) which was the top performing model obtained a precision of 90%. 
-    </p> 
 
-    <h6>This work is yet to be published</h6>
-</div>        
+{% block title %}
+  Home
+{% endblock %}
+
+{% block content %}
+  <section class="hero-section" aria-labelledby="hero-section-title">
+    <h2 id="hero-section-title">AICPred</h2>
+
+    <div class="hero-section__content">
+      <p>EBOLApred is a machine learning-based web application for predicting molecules capable of inhibiting the activities of glycoprotein (GP) and the matrix protein (VP40) of the Ebola virus. The developed predictive models were trained on Ebola cell entry inhibitors consisting of 1972 compounds. Random forest (RF) which was the top performing model obtained an F1 score of 0.9 and an area under the curve (AUC) score of 0.95. Users can predict the activity of compounds using random forest (RF), logistic regression (LR) or Support Vector Machine (SVM) models. LR and SVM models also showed plausible performance with overall accuracy of 0.84 and 0.86, respectively.</p>
+
+      <a class="btn" href="/upload">Upload</a>
+    </div>
+  </section>
+
+  <section class="faq-section" aria-labelledby="faq-section-title">
+    <h2 id="faq-section-title" class="section-title">Frequently Asked Questions</h2>
+
+    <div class="faq-section__content">
+      {% for faq in faqs %}
+        <button type="button" class="faq-section__card" data-target="faq-1">
+          <span>{{faq.question}}</span>
+          <span class="sr-only">View Answer</span>
+        </button>
+        <dialog id="faq-1" class="faq-section__dialog">
+          <article>
+            <h3>{{faq.question}}</h3>
+            <p>{{faq.answer}}/p>
+            <button type="button">
+              <span>&#128473;</span>
+              <span class="sr-only">Close</span>
+            </button>
+          </article>
+        </dialog>
+      {% endfor %}
+    </div>
+    
+  </section>
+
+  <section class="citations-section" aria-labelledby="citations-section-title">
+    <h2 class="section-title" id="citations-section-title">Citations</h2>
+
+    <div class="citations-section__content">
+      <p>Adams, J., Agyenkwa-Mawuli, K., Agyapong, O., Wilson, M. D., & Kwofie, S. K. (2022). EBOLApred: A machine learning-based web application for predicting cell entry inhibitors of the ebola virus. Computational Biology and Chemistry, 107766. <a href="https://doi.org/10.1016/j.compbiolchem.2022.107766" target="_blank" rel="noopener">&lt;Change text&gt;</a></p>
+      <!-- TODO: Add better text for link -->
+    </div>
+  </section>
+{% endblock %}
+
+{% block footer %}
+  <footer class="main-footer">
+    <div class="main-footer__content">
+      {% for contact in contacts %}
+        <address>
+          <p>{{contact.title}}</p>
+          <p>{{contact.name}}</p>
+          <a href="mailto:{{contact.email}}">{{contact.email}}</a>
+        </address>
+      {% endfor %}
+    </div>
+  </footer>
 {% endblock %}

@@ -1,63 +1,93 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block title %}
-    Upload
+  Upload | Upload
 {% endblock %}
 
+{% block link %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/upload.js') }}" defer></script>
+{% endblock %}
+
+{% block style %}
+<style>
+.centered-input {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 100%;
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-    <div class="mb-5 py-3 px-5 rounded bg-white">
-        <div class="dark-test size-h2-thin mb-4">
-            <br>
-            <h6>PERFORM A PREDICTION</h6>
-        </div>
-        <form action="" method="POST" style="color: white">
-            {{ form.hidden_tag() }}
-            <div class = "mb3-3 dark-text">
-                {{ form.molecule_id.label(class="form-label bold-text") }}
-                {{ form.molecule_id(class="form-control", id = "molecule_id", placeholder="54670067" )}}
-
-                {{ form.smiles.label(class="form-label bold-text") }}
-                {{ form.smiles(class="form-control", id = "smiles", placeholder="C(C(C1C(=C(C(=O)O1)O)O)O)O") }}
-
-                <br>
-
-                {{ form.submit(class="btn btn-primary") }}
-            </div>
+  <section class="upload-section" aria-label="Upload SMILES">
+    <div class="upload-section__form-container">
+        <h2 class="section-title">AICPred</h2>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis enim, eos rerum tempora ea dolore.</p>
+      
+        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID", required=true) }}
+          </div>
+          <div class="form-group">
+            {{ form.smiles(class="form-control centered-input", placeholder="Smiles", required=true) }}
+          </div>
+          <div class="form-group">
+            {{ form.model_type(class="form-control centered-input") }}
+          </div>
+          <button type="submit" class="btn">Submit</button>
         </form>
-    </div>
+      </div>
+      
 
-    {% if results %}
-        <div class="mb-5 py-3 px-5 rounded bg-white">
-            <div class="dark-test size-h2-thin mb-4">
-                <br>
-                <h6>RESULTS</h6>
+      {% if results %}
+      <div id="results" class="upload-section__output-container" data-has-results="true">
+        <output form="upload-form" class="upload-section__output">
+          <header>
+            <div class="flex justify-space-betwwen align-center">
+              <h2>Results</h2>
+              <a href="#" class="btn btn--sm">Download Report</a>
+            </div>
+            <p>{{ results.smiles }}</p>
+          </header>
+
+          <div class="upload-section__output-content">
+            <div class="upload-section__output-img-section">
+              <div class="upload-section__output-img-container">
+                <img src="data:image/png;base64, {{ results.image }}" alt="Molecule">
+              </div>
+              <div class="upload-section__output-img-container">
+                <img src="data:image/png;base64, {{ results.adImage }}" alt="Applicability Domain">
+              </div>
             </div>
 
-            <!-- <div class = "mb3-3 dark-text">
-                <div class="bold-text">SMILES</div>
-                <div class="mb-3">{{ form.smiles }}</div>
-            </div> -->
-            
-            <table class = "table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope = "col">Molecule ID</th>
-                        <th scope = "col">Activity</th>
-                        <th scope = "col">Confidence</th>
-                        <th scope = "col">Applicability Domain</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ results.molecule_id }}</td>
-                        <td>{{ results.activity }}</td>
-                        <td>{{ results.confidence }}</td>
-                        <td>{{ 'N/A' }}</td>
-                    </tr>
-                </tbody>
+            <table class="upload-section__output-table">
+              <tr>
+                <th>Model used</th>
+                <th>MW (g/mol)</th>
+                <th>Activity</th>
+                <th>Confidence</th>
+                <th>AD Analysis</th>
+              </tr>
+              <tr>
+                <td>{{ results.model_type }}</td>
+                <td>{{ results.mw }}</td>
+                <td>{{ results.activity }}</td>
+                <td>{{ results.confidence }}</td>
+                <td>{{ results.adAnalysis }}</td>
+              </tr>
             </table>
-        </div>
-    {% endif %}
-    
+          </div>
+        </output>
+      {% else %}
+        <p class="flash-message">Upload SMILES to view activity</p>
+      {% endif %}
+    </div>
+  </section>
 {% endblock %}

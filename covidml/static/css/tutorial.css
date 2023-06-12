@@ -1,0 +1,11 @@
+.tutorial-section {
+  padding-inline: var(--content-padding-inline);
+  padding-block: 2em;
+  display: grid;
+  gap: 1em;
+}
+
+.tutorial-section__step h3 {
+  font-size: 1.25rem;
+  font-weight: var(--fw-medium);
+}
