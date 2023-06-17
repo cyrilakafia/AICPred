@@ -101,9 +101,20 @@ button {
   transition: background-color 150ms;
 }
 
+.btn--secondary {
+  background-color: #0000;
+  color: var(--clr-accent);
+  font-weight: var(--fw-medium);
+}
+
 .btn:hover,
-.btn:focus {
+.btn:focus-visible {
   background-color: var(--clr-accent-dark);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+  background-color: hsl(var(--hsl-accent) / 0.15);
 }
 
 .btn--sm {

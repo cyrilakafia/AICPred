@@ -1,17 +1,12 @@
-const moleculeIdInput = document.querySelector("input[name=\"molecule-id\"]")
-const smilesInput = document.querySelector("input[name=\"smiles\"]")
-const modelTypeSelectInput = document.querySelector("select[name=\"model-type\"]")
+const exampleMoleculeButton = document.querySelector(".upload-section__example-btn")
+const moleculeIdInput = document.querySelector("input#molecule_id")
+const smilesInput = document.querySelector("input#smiles")
+const modelTypeSelectInput = document.querySelector("select#model_type")
 
 const exampleMolecule = {
-  moleculeId: "Mol 2",
-  smiles: "Oc1cc2c([nH]c(c3nn(C(C)C)c4ncnc(N)c34)c2)cc1",
-  modelType: "SVM"
-}
-
-// * Call this function to fill form with example
-// * You could set it as the click handler of a button or something
-function prefillFormWithExample(){
-  prefillForm(exampleMolecule)
+  moleculeId: "1983",
+  smiles: "CC(=O)NC1=CC=C(C=C1)O",
+  modelType: "XGBoost"
 }
 
 function prefillForm({ moleculeId, smiles, modelType}){
@@ -19,3 +14,7 @@ function prefillForm({ moleculeId, smiles, modelType}){
   smilesInput.value = smiles
   modelTypeSelectInput.value = modelType
 }
+
+exampleMoleculeButton.addEventListener("click", () => {
+  prefillForm(exampleMolecule)
+})
