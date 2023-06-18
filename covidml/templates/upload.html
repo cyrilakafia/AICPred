@@ -27,20 +27,29 @@
 {% block content %}
   <section class="upload-section" aria-label="Upload SMILES">
     <div class="upload-section__form-container">
-        <h2 class="section-title">AICPred</h2>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis enim, eos rerum tempora ea dolore.</p>
+        <h2 class="section-title">StormPred</h2>
+        <p>Enter Compound's PubChem CID and SMILES to make a prediction.</p>
         <button type="button" class="upload-section__example-btn btn btn--secondary">Use example molecule</button>
       
         <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
           {{ form.hidden_tag() }}
           <div class="form-group">
-            {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID", required=true) }}
+            {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID") }}
           </div>
           <div class="form-group">
-            {{ form.smiles(class="form-control centered-input", placeholder="Smiles", required=true) }}
+            {{ form.smiles(class="form-control centered-input", placeholder="Smiles") }}
           </div>
           <div class="form-group">
             {{ form.model_type(class="form-control centered-input") }}
+          </div>
+          <button type="submit" class="btn">Submit</button>
+        </form>
+        <br>
+        <p>Alternatively, upload a file</p>
+        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
+          {{ upload_file.hidden_tag() }}
+          <div class="form-group">
+            {{ upload_file.file(class="form-control centered-input") }}
           </div>
           <button type="submit" class="btn">Submit</button>
         </form>
@@ -53,7 +62,7 @@
           <header>
             <div class="flex justify-space-betwwen align-center">
               <h2>Results</h2>
-              <a href="#" class="btn btn--sm">Download Report</a>
+              <a href="{{ url_for('download_csv') }}" class="btn btn--sm">Download Report</a>
             </div>
             <p>{{ results.smiles }}</p>
           </header>
@@ -81,7 +90,7 @@
                 <td>{{ results.mw }}</td>
                 <td>{{ results.activity }}</td>
                 <td>{{ results.confidence }}</td>
-                <td>{{ results.adAnalysis }}</td>
+                <td>{{ results.ad }}</td>
               </tr>
             </table>
           </div>
