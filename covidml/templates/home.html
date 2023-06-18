@@ -32,14 +32,14 @@
 
     <div class="faq-section__content">
       {% for faq in faqs %}
-        <button type="button" class="faq-section__card" data-target="faq-1">
+        <button type="button" class="faq-section__card" data-target="faq-{{loop.index}}">
           <span>{{faq.question}}</span>
           <span class="sr-only">View Answer</span>
         </button>
-        <dialog id="faq-1" class="faq-section__dialog">
+        <dialog id="faq-{{loop.index}}" class="faq-section__dialog">
           <article>
             <h3>{{faq.question}}</h3>
-            <p>{{faq.answer}}/p>
+            <p>{{faq.answer}}</p>
             <button type="button">
               <span>&#128473;</span>
               <span class="sr-only">Close</span>
