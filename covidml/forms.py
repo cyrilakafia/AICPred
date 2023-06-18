@@ -7,3 +7,9 @@ class UploadForm(FlaskForm):
     smiles = StringField(label='SMILES', validators=[DataRequired(message="Please enter a SMILES string.")])
     model_type = SelectField(label='Algorithm', choices=[('XGBoost', 'XGBoost'), ('Decision Tree', 'Decision Tree')], validators=[DataRequired()])
     submit = SubmitField(label='Predict')
+
+
+class UploadFile(FlaskForm):
+    file = FileField(label='Upload File', validators=[DataRequired(message="Please upload a file.")])
+    model_type = SelectField(label='Algorithm', choices=[('XGBoost', 'XGBoost'), ('Decision Tree', 'Decision Tree')], validators=[DataRequired()])
+    submit = SubmitField(label='Predict')
