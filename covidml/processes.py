@@ -81,11 +81,13 @@ def applicability_domain(id, df):
     except Exception as e:
         print("An error occurred: ")
         print(e)
+        
     
     df.drop(['ID'], inplace=True, axis=1)
     
     for i, column in enumerate(df.columns, 0):
         df[column] = (df[column] - means[i])/stds[i]
+        
 
     max_value = df.iloc[0].max()
 
@@ -117,6 +119,7 @@ def applicability_domain(id, df):
 
     stan1 = np.load('covidml/models/AD/in_domain_train.npy')
     stan2 = np.load('covidml/models/AD/out_domain_train.npy')
+    
 
     plt.scatter(np.log(cid1), stan1, color = 'b',  s=20, alpha=0.5, label="Train", marker="h", edgecolors='black')
     plt.scatter(np.log(cid2), stan2, color = 'b',  s=20, alpha=0.5, marker="h", edgecolors='black')
@@ -124,14 +127,14 @@ def applicability_domain(id, df):
     plt.scatter(np.log(int(id)), values[1], color = 'r',  s=90, alpha=0.9, label="Test", marker="h", edgecolors='black')
     
     plt.axhline(3, color = 'black', ls= '--')
-    plt.ylim(bottom=0.2, top=9)
+    plt.ylim(bottom=0.2, top=7)
     plt.xlabel("Log(Compound CID)")
     plt.ylabel("Standardized Descriptor Values")
     plt.title('Applicability Domain Analysis')
     plt.legend()
     try:
         byte_stream = BytesIO()
-        plt.savefig(byte_stream, format='PNG')
+        plt.savefig(byte_stream, format='PNG', dpi=80, bbox_inches='tight')
         byte_stream.seek(0)
     
         plot_data = b64encode(byte_stream.getvalue()).decode('utf-8')

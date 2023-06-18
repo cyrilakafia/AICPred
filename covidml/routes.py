@@ -44,7 +44,10 @@ def upload_page():
             results['confidence'] = confidence
             results['molecule_id'] = molecule_id
             results['adAnalysis'] = ad_analysis
-            results['smiles'] = smiles[0]
+            if len(smiles[0]) > 80:
+                results['smiles'] = smiles[0][:80] + '...'
+            else:
+                results['smiles'] = smiles[0]
             results['image'] = structure_img
             results['adImage'] = ad_img
             

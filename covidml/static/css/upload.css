@@ -56,6 +56,7 @@ body {
 }
 
 .upload-section__form input[type="text"],
+.upload-section__form input[type="number"],
 .upload-section__form select {
   border: 1px solid #0009;
   border-radius: 0.5em;
@@ -175,4 +176,10 @@ body {
 
 :where([data-has-results="true"]) .upload-section__output-placeholder {
   display: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
 }
