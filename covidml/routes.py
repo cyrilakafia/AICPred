@@ -1,6 +1,6 @@
 from covidml import app
 from flask import render_template, redirect, url_for, request, flash, send_file
-from covidml.forms import UploadForm
+from covidml.forms import UploadForm, UploadFile
 from covidml.faq_contacts import faqs, contacts
 from covidml.processes import load_model, predict_activity, calculate_molecular_weight, smiles_to_image
 from covidml.processes import applicability_domain
@@ -20,6 +20,7 @@ def home_page():
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload_page():
     form = UploadForm()
+    upload_file = UploadFile()
     if form.validate_on_submit():
         molecule_id = form.molecule_id.data
         smiles = [str((form.smiles.data))]
@@ -67,7 +68,7 @@ def upload_page():
             # return results
         return render_template('upload.html', title='Results', form=form, results=results)
             
-    return render_template('upload.html', title='Upload', form=form)
+    return render_template('upload.html', title='Upload', form=form, upload_file=upload_file)
 
 @app.route('/tutorials')
 def tutorials_page():
