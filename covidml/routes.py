@@ -1,6 +1,6 @@
 from covidml import app
-from flask import render_template, redirect, url_for, flash, send_file
-from covidml.forms import UploadForm
+from flask import render_template, redirect, url_for, flash, send_file, request
+from covidml.forms import UploadForm, UploadFile
 from covidml.faq_contacts import faqs, contacts
 from covidml.processes import load_model, predict_activity, calculate_molecular_weight, smiles_to_image
 from covidml.processes import applicability_domain
