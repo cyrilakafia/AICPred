@@ -43,6 +43,11 @@ body {
   max-width: 25em;
 }
 
+.upload-section__example-btn {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
 .upload-section__form {
   display: grid;
   grid-auto-flow: row;
