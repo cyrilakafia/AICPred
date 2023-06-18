@@ -46,6 +46,7 @@ button {
   --hsl-accent: 202 89% 22%;
   --clr-accent-dark: #072d44;
   --clr-accent-light: #d0d7e1;
+  --hsl-accent-light: 215 22% 85%;
 
   --clr-bg-primary: var(--clr-accent-light);
 
@@ -81,6 +82,13 @@ button {
 
 .flex {
   display: flex;
+}
+
+:where(.flex).column {
+  flex-direction: column;
+}
+:where(.flex).row-reverse {
+  flex-direction: row-reverse;
 }
 
 :where(.flex).justify-space-betwwen {

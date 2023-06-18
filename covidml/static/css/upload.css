@@ -29,13 +29,15 @@ body {
   text-align: center;
   justify-items: center;
   align-content: center;
-  padding-inline: clamp(1em, calc(-1em + 5vw), 3em);
+  --form-container-inline-padding: clamp(1em, calc(-1em + 5vw), 3em);
+  padding-inline: var(--form-container-inline-padding);
   padding-block: clamp(1em, calc(-0.5em + 5vw), 5em);
   background-color: #f1f1f1;
   border-radius: 0.5em;
   width: -moz-fit-content;
   width: fit-content;
   box-shadow: 4px 4px 7.5px #0003;
+  position: relative;
 }
 
 .upload-section__form-container > * {
@@ -52,11 +54,32 @@ body {
   display: grid;
   grid-auto-flow: row;
   gap: 0.625em;
+}
+
+.upload-section__form button[type="reset"],
+.upload-section__form button[type="submit"] {
+  padding-block: 0.625em;
+}
+
+.upload-section__form button[type="reset"] {
+  color: #f22;
+}
+
+.upload-section__form button[type="reset"]:hover,
+.upload-section__form button[type="reset"]:focus-visible {
+  background-color: #f222;
+}
+
+[data-hide="true"] {
+  display: none!important;
+}
+
+:where(.upload-section__form).upload-form {
   margin-top: 1.5em;
 }
 
-.upload-section__form input[type="text"],
-.upload-section__form select {
+:where(.upload-section__form).upload-form input[type="text"],
+:where(.upload-section__form).upload-form select {
   border: 1px solid #0009;
   border-radius: 0.5em;
   padding-block: 0.625em;
@@ -64,7 +87,7 @@ body {
   background-color: #0000;
 }
 
-.upload-section__form select {
+:where(.upload-section__form).upload-form select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23000' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 1 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.5em center;
@@ -74,8 +97,106 @@ body {
   appearance: none;
 }
 
-.upload-section__form button[type="submit"] {
-  padding-block: 0.625em;
+:where(.upload-section__form).file-form[data-has-file="true"] {
+  gap: 1.5em;
+  margin-top: 1em;
+}
+
+:where(.upload-section__form).file-form input[type="file"] {
+  display: none;
+}
+
+:where(.upload-section__form).file-form label {
+  display: block;
+  cursor: pointer;
+  color: var(--clr-accent);
+  font-weight: var(--fw-medium);
+}
+
+:where(.upload-section__form).file-form label:hover,
+:where(.upload-section__form).file-form label:focus-visible {
+  text-decoration: underline;
+}
+
+:where(.upload-section__form).file-form[data-has-file="false"] button[type="reset"],
+:where(.upload-section__form).file-form[data-has-file="false"] button[type="submit"] {
+  display: none;
+}
+
+.upload-section__form-separator {
+  color: #333;
+  position: relative;
+  display: grid;
+  place-content: center;
+  margin-block: 1em;
+}
+
+.upload-section__form-separator::before,
+.upload-section__form-separator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  --padding: 1em;
+  width: calc(50% - 3ch - var(--padding));
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.75;
+}
+
+.upload-section__form-separator::before {
+  left: var(--padding);
+}
+
+.upload-section__form-separator::after {
+  right: var(--padding);
+}
+
+.upload-section__file-preview {
+  display: flex;
+  gap: 0.25em;
+  align-items: center;
+  justify-content: center;
+}
+
+:where(.upload-section__form).file-form[data-has-file="false"] .upload-section__file-preview {
+  display: none;
+}
+
+.upload-section__file-preview img {
+  width: 1.5em;
+}
+
+.upload-section__file-preview p {
+  font-size: 1.25rem;
+  display: inline-block;
+  max-width: 25ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.upload-section__dropzone-content {
+  position: absolute;
+  inset: 0;
+  max-width: none;
+  border-radius: inherit;
+  background-color: hsl(var(--hsl-accent-light) / 0.85);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  border: 2px dashed var(--clr-accent);
+  color: var(--clr-accent);
+  font-size: 2rem;
+  pointer-events: none;
+}
+
+.upload-section__dropzone-content img {
+  max-width: 5em;
+}
+
+[data-dropzone][data-hovered="false"] .upload-section__dropzone-content {
+  display: none;
 }
 
 .upload-section__output-container {

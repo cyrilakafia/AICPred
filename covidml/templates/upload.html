@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block script %}
+    <script src="{{ url_for('static', filename='js/signal.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/upload.js') }}" defer></script>
 {% endblock %}
 
@@ -26,12 +27,12 @@
 
 {% block content %}
   <section class="upload-section" aria-label="Upload SMILES">
-    <div class="upload-section__form-container">
+    <div class="upload-section__form-container" data-dropzone data-hovered="false">
         <h2 class="section-title">AICPred</h2>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis enim, eos rerum tempora ea dolore.</p>
         <button type="button" class="upload-section__example-btn btn btn--secondary">Use example molecule</button>
       
-        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
+        <form id="upload-form" class="upload-section__form upload-form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
           {{ form.hidden_tag() }}
           <div class="form-group">
             {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID", required=true) }}
@@ -44,6 +45,31 @@
           </div>
           <button type="submit" class="btn">Submit</button>
         </form>
+
+        <div class="upload-section__form-separator">or</div>
+
+        <form id="file-form" class="upload-section__form file-form" data-has-file="false">
+          
+          <div class="form-group">
+            <div class="upload-section__file-preview">
+              <img src="{{ url_for('static', filename='images/file.svg') }}" alt="file">
+              <p>example.txt</p>
+            </div>
+
+            <label for="txt_file">Select text file</label>
+            <input id="txt_file" type="file" required>
+          </div>
+
+          <div class="flex column" style="gap: 0.5em">
+            <button type="submit" class="btn">Submit</button>
+            <button type="reset" class="btn btn--secondary">Clear</button>
+          </div>
+        </form>
+
+        <div class="upload-section__dropzone-content">
+          <img src="{{ url_for('static', filename='images/file-accent.svg') }}" alt="file">
+          <p>Drop file to upload</p>
+        </div>
       </div>
       
 
