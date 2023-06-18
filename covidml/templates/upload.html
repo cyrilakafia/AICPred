@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Upload | Upload
+  Upload
 {% endblock %}
 
 {% block link %}
@@ -41,15 +41,6 @@
           </div>
           <div class="form-group">
             {{ form.model_type(class="form-control centered-input") }}
-          </div>
-          <button type="submit" class="btn">Submit</button>
-        </form>
-        <br>
-        <p>Alternatively, upload a file</p>
-        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
-          {{ upload_file.hidden_tag() }}
-          <div class="form-group">
-            {{ upload_file.file(class="form-control centered-input") }}
           </div>
           <button type="submit" class="btn">Submit</button>
         </form>
