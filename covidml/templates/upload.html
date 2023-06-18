@@ -53,7 +53,7 @@
           <header>
             <div class="flex justify-space-betwwen align-center">
               <h2>Results</h2>
-              <a href="#" class="btn btn--sm">Download Report</a>
+              <a href="{{ url_for('download_csv') }}" class="btn btn--sm">Download Report</a>
             </div>
             <p>{{ results.smiles }}</p>
           </header>

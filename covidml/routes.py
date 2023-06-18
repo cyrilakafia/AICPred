@@ -1,10 +1,12 @@
 from covidml import app
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, send_file
 from covidml.forms import UploadForm
 from covidml.faq_contacts import faqs, contacts
 from covidml.processes import load_model, predict_activity, calculate_molecular_weight, smiles_to_image
 from covidml.processes import applicability_domain
 
+import pandas as pd
+import os
 
 @app.route('/')
 @app.route('/home')
@@ -38,18 +40,25 @@ def upload_page():
             
             
             results = {}
-            results['model_type'] = model_type
-            results['mw'] = molecular_weight
-            results['activity'] = activity
-            results['confidence'] = confidence
             results['molecule_id'] = molecule_id
-            results['adAnalysis'] = ad_analysis
             if len(smiles[0]) > 80:
                 results['smiles'] = smiles[0][:80] + '...'
             else:
                 results['smiles'] = smiles[0]
+            results['mw'] = molecular_weight
+            results['activity'] = activity
+            results['confidence'] = confidence
+            results['ad'] = ad_analysis
+            
+            os.remove('covidml/static/temp/results.csv')
+            df = pd.DataFrame(results, index=[0])
+            df.to_csv('covidml/static/temp/results.csv', index=False)
+            
+            
+            results['model_type'] = model_type
             results['image'] = structure_img
             results['adImage'] = ad_img
+            
             
         except Exception as e:
             flash("Invalid SMILES", "danger")
@@ -63,3 +72,7 @@ def upload_page():
 @app.route('/tutorials')
 def tutorials_page():
     return render_template('tutorials.html', title='Tutorials')
+
+@app.route('/download_csv')
+def download_csv():
+    return send_file('static/temp/results.csv', as_attachment=True)

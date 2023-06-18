@@ -148,4 +148,3 @@ def applicability_domain(id, df):
     
     return plot_data, output
     
-    
