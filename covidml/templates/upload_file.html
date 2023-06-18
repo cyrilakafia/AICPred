@@ -28,24 +28,20 @@
   <section class="upload-section" aria-label="Upload SMILES">
     <div class="upload-section__form-container">
         <h2 class="section-title">StormPred</h2>
-        <p>Enter Compound's PubChem CID and SMILES to make a prediction.</p>
-        <button type="button" class="upload-section__example-btn btn btn--secondary">Use example molecule</button>
+        <p>Upload a text file containing compound PubChem IDs and SMILES to make a prediction.</p>
       
-        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
-          {{ form.hidden_tag() }}
+        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_file_page') }}" aria-label="Upload" enctype="multipart/form-data">
+          {{ file_form.hidden_tag() }}
           <div class="form-group">
-            {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID") }}
+            {{ file_form.file(class="form-control centered-input") }}
           </div>
           <div class="form-group">
-            {{ form.smiles(class="form-control centered-input", placeholder="Smiles") }}
-          </div>
-          <div class="form-group">
-            {{ form.model_type(class="form-control centered-input") }}
+            {{ file_form.model_type(class="form-control centered-input") }}
           </div>
           <button type="submit" class="btn">Submit</button>
         </form>
         <br>
-        <a href="{{ url_for('upload_file_page') }}" type="button" class="upload-section__example-btn btn btn--secondary">To upload a txt file instead</a>
+        <a href="{{ url_for('upload_page') }}" type="button" class="upload-section__example-btn btn btn--secondary">To input ID and SMILES manually</a>
       </div>
       
 
@@ -89,7 +85,7 @@
           </div>
         </output>
       {% else %}
-        <p class="flash-message">Upload accurate SMILES to view activity</p>
+        <p class="flash-message">Upload text file with accurate SMILES to view activity</p>
       {% endif %}
     </div>
   </section>

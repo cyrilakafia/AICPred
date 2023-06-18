@@ -10,6 +10,6 @@ class UploadForm(FlaskForm):
 
 
 class UploadFile(FlaskForm):
-    file = FileField(label='Upload File', validators=[DataRequired()])
+    file = FileField(label='Upload File', validators=[DataRequired(message="Please upload a file.")])
     model_type = SelectField(label='Algorithm', choices=[('XGBoost', 'XGBoost'), ('Decision Tree', 'Decision Tree')], validators=[DataRequired()])
     submit = SubmitField(label='Predict')
