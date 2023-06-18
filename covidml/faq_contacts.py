@@ -1,22 +1,23 @@
 def faqs():
     faqs_list = [
-        {'question': 'Question 1', 'answer': 'Answer 1'},
-        {'question': 'Question 2', 'answer': 'Answer 2'},
-        {'question': 'Question 3', 'answer': 'Answer 3'},
-        {'question': 'Question 4', 'answer': 'Answer 4'},
-        {'question': 'Question 5', 'answer': 'Answer 5'},
-        {'question': 'Question 6', 'answer': 'Answer 6'},
+        {'question': 'How does StormPred work? ', 'answer': 'StormPred uses machine learning models trained on experimentally-tested TLR4 inhibitors to predict the inhibitive capacity of small anti-inflammatory molecules against the TLR4 receptor.'},
+        {'question': 'Is StormPred free to use?', 'answer': 'Yes. This web app is completely free.'},
+        {'question': 'What kind of data do I need to provide to use StormPred?', 'answer': 'No personal data is collected. Users only need to provide data on the compound.'},
+        {'question': 'Is StormPred for professionals only?', 'answer': 'No. Anyone can use this web app as long as they have their data.'},
+        {'question': 'How accurate are the predictions made by StormPred?', 'answer': 'The XGBoost and Decision Tree models were able to predict all experimentally validated inhibitors of TLR4 as active with a confidence range of 0.72-1.00. This makes StormPred reliable.'},
+        {'question': 'How can I provide feedback or report issues with StormPred?', 'answer': 'In case of any feedback or issues, please contact our support team at support@stormpred.com.'}
         # Add more FAQ objects as needed
     ]
     
     return faqs_list
+
     
 def contacts():
     contacts_list = [
-        {'title': 'Title 1', 'name': 'Name 1', 'email': 'email1@example.com'},
-        {'title': 'Title 2', 'name': 'Name 2', 'email': 'email2@example.com'},
-        {'title': 'Title 3', 'name': 'Name 3', 'email': 'email3@example.com'},
-        {'title': 'Title 4', 'name': 'Name 4', 'email': 'email4@example.com'}
+        {'title': 'Principle Investigator', 'name': 'Dr. Samuel Kojo Kwofie', 'email': 'skkwofie@ug.edu.gh'},
+        {'title': 'Author', 'name': 'Lucindah Fry-Nartey', 'email': 'lfry-narter@st.ug.edu.gh'},
+        {'title': 'Developer/Author', 'name': 'Cyril Selase K. Akafia', 'email': 'cskakafia@st.ug.edu.gh'},
+        {'title': 'Author', 'name': 'Ursula Senam Nkonu', 'email': 'usnkonu@st.ug.edu.gh'}
     # Add more Contact objects as needed
     ]
     
