@@ -11,7 +11,7 @@ from io import BytesIO
 
 matplotlib.use('Agg')
 
-plt.style.use('covidml\static\stylesheet\ssass.mplstyle')
+plt.style.use('covidml/static/stylesheet/ssass.mplstyle')
 
 def load_model(model_type):
     with open(f'covidml/models/{model_type}/mask1', 'rb') as file:
