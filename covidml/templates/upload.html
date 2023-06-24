@@ -21,10 +21,29 @@
     display: block;
     width: 100%;
   }
+
+.alert {
+    display: inline-block;
+    padding: 10px;
+    background-color: #e26c70;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
 </style>
 {% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      <p>{{ message }}</p>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
   <section class="upload-section" aria-label="Upload SMILES">
     <div class="upload-section__form-container">
         <h2 class="section-title">StormPred</h2>
@@ -45,7 +64,7 @@
           <button type="submit" class="btn">Submit</button>
         </form>
         <br>
-        <a href="{{ url_for('upload_file_page') }}" type="button" class="upload-section__example-btn btn btn--secondary">To upload a text file instead</a>
+        <a href="{{ url_for('upload_file_page') }}" type="button" class="upload-section__example-btn btn">Upload Text File</a>
       </div>
       
 
@@ -72,7 +91,7 @@
 
             <table class="upload-section__output-table">
               <tr>
-                <th>Model Used</th>
+                <th>Model used</th>
                 <th>MW (g/mol)</th>
                 <th>Activity</th>
                 <th>Confidence</th>
@@ -88,8 +107,6 @@
             </table>
           </div>
         </output>
-      {% else %}
-        <p class="flash-message">Upload accurate SMILES to view activity</p>
       {% endif %}
     </div>
   </section>
