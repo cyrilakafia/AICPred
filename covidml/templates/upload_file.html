@@ -21,10 +21,28 @@
     display: block;
     width: 100%;
   }
+
+.alert {
+    display: inline-block;
+    padding: 10px;
+    background-color: #e26c70;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      <p>{{ message }}</p>
+    </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
   <section class="upload-section" aria-label="Upload SMILES">
     <div class="upload-section__form-container">
         <h2 class="section-title">StormPred</h2>
@@ -41,7 +59,7 @@
           <button type="submit" class="btn">Submit</button>
         </form>
         <br>
-        <a href="{{ url_for('upload_page') }}" type="button" class="upload-section__example-btn btn btn--secondary">To input ID and SMILES manually</a>
+        <a href="{{ url_for('upload_page') }}" type="button" class="upload-section__example-btn btn">Input SMILES String</a>
       </div>
       
 
@@ -84,8 +102,6 @@
             </table>
           </div>
         </output>
-      {% else %}
-        <p class="flash-message">Upload text file with accurate SMILES to view activity</p>
       {% endif %}
     </div>
   </section>
