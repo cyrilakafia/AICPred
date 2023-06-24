@@ -14,10 +14,10 @@ def faqs():
     
 def contacts():
     contacts_list = [
-        {'title': 'Principle Investigator', 'name': 'Dr. Samuel Kojo Kwofie', 'email': 'skkwofie@ug.edu.gh'},
-        {'title': 'Author', 'name': 'Lucindah Fry-Nartey', 'email': 'lfry-narter@st.ug.edu.gh'},
-        {'title': 'Developer/Author', 'name': 'Cyril Selase K. Akafia', 'email': 'cskakafia@st.ug.edu.gh'},
-        {'title': 'Author', 'name': 'Ursula Senam Nkonu', 'email': 'usnkonu@st.ug.edu.gh'}
+        {'title': 'Principal Investigator', 'name': 'Dr. Samuel Kojo Kwofie', 'email': 'skkwofie@ug.edu.gh'},
+        {'title': 'First Author', 'name': 'Lucindah Fry-Nartey', 'email': 'lfry-narter@st.ug.edu.gh'},
+        {'title': 'Developer | Co-author', 'name': 'Cyril Selase K. Akafia', 'email': 'cskakafia@st.ug.edu.gh'},
+        {'title': 'Co-author', 'name': 'Ursula Senam Nkonu', 'email': 'usnkonu@st.ug.edu.gh'}
     # Add more Contact objects as needed
     ]
     
