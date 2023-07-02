@@ -18,3 +18,15 @@ function prefillForm({ moleculeId, smiles, modelType}){
 exampleMoleculeButton.addEventListener("click", () => {
   prefillForm(exampleMolecule)
 })
+
+const formTabs = new TabSystem(
+  Array.from(document.querySelectorAll("button[role=tab]")),
+  Array.from(document.querySelectorAll("div[role=tabpanel]"))
+)
+
+formTabs.init()
+
+const outputSection = document.querySelector("#results")
+if(outputSection != null){
+  window.location.hash = "#results"
+}
