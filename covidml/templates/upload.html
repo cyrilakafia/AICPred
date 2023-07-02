@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block script %}
+    <script src="{{ url_for('static', filename='js/tabs.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/upload.js') }}" defer></script>
 {% endblock %}
 
@@ -45,69 +46,92 @@
   {% endif %}
 {% endwith %}
   <section class="upload-section" aria-label="Upload SMILES">
-    <div class="upload-section__form-container">
-        <h2 class="section-title">StormPred</h2>
-        <p>Enter Compound's PubChem CID and SMILES to make a prediction.</p>
-        <button type="button" class="upload-section__example-btn btn btn--secondary">Use example molecule</button>
-      
-        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
-          {{ form.hidden_tag() }}
-          <div class="form-group">
-            {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID") }}
-          </div>
-          <div class="form-group">
-            {{ form.smiles(class="form-control centered-input", placeholder="Smiles") }}
-          </div>
-          <div class="form-group">
-            {{ form.model_type(class="form-control centered-input") }}
-          </div>
-          <button type="submit" class="btn">Submit</button>
-        </form>
-        <br>
-        <a href="{{ url_for('upload_file_page') }}" type="button" class="upload-section__example-btn btn">Upload Text File</a>
+    <div>
+      <div class="upload-section__form-tablist" role="tablist" aria-labelledby="section-title">
+        <button id="smiles-tab" class="upload-section__form-tab" type="button" role="tab" aria-selected="true" aria-controls="smiles-tabpanel">Input SMILES</button>
+        <button id="file-tab" class="upload-section__form-tab" type="button" role="tab" aria-selected="true" aria-controls="file-tabpanel">Upload File</button>
       </div>
-      
 
-      {% if results %}
-      <div id="results" class="upload-section__output-container" data-has-results="true">
-        <output form="upload-form" class="upload-section__output">
-          <header>
-            <div class="flex justify-space-betwwen align-center">
-              <h2>Results</h2>
-              <a href="{{ url_for('download_csv') }}" class="btn btn--sm">Download Report</a>
+      <div class="upload-section__form-tabpanel" role="tabpanel" role="tabpanel" id="smiles-tabpanel" aria-labelledby="smiles-tab" data-active="false">
+        <div class="upload-section__form-container">
+          <h2 class="section-title">StormPred</h2>
+          <p>Enter Compound's PubChem CID and SMILES to make a prediction.</p>
+          <button type="button" class="upload-section__example-btn btn btn--secondary">Use example molecule</button>
+    
+          <form id="smiles-upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+              {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID") }}
             </div>
-            <p>{{ results.smiles }}</p>
-          </header>
-
-          <div class="upload-section__output-content">
-            <div class="upload-section__output-img-section">
-              <div class="upload-section__output-img-container">
-                <img src="data:image/png;base64, {{ results.image }}" alt="Molecule">
-              </div>
-              <div class="upload-section__output-img-container">
-                <img src="data:image/png;base64, {{ results.adImage }}" alt="Applicability Domain">
-              </div>
+            <div class="form-group">
+              {{ form.smiles(class="form-control centered-input", placeholder="Smiles") }}
             </div>
-
-            <table class="upload-section__output-table">
-              <tr>
-                <th>Model used</th>
-                <th>MW (g/mol)</th>
-                <th>Activity</th>
-                <th>Confidence</th>
-                <th>AD Analysis</th>
-              </tr>
-              <tr>
-                <td>{{ results.model_type }}</td>
-                <td>{{ results.mw }}</td>
-                <td>{{ results.activity }}</td>
-                <td>{{ results.confidence }}</td>
-                <td>{{ results.ad }}</td>
-              </tr>
-            </table>
-          </div>
-        </output>
-      {% endif %}
+            <div class="form-group">
+              {{ form.model_type(class="form-control centered-input") }}
+            </div>
+            <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+      </div>
+      <div class="upload-section__form-tabpanel" role="tabpanel" id="file-tabpanel" aria-labelledby="file-tab" data-active="false">
+        <div class="upload-section__form-container">
+          <h2 class="section-title">StormPred</h2>
+          <p>Upload a text file containing compound PubChem IDs and SMILES to make a prediction.</p>
+  
+          <form id="file-upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_file_page') }}" aria-label="Upload" enctype="multipart/form-data">
+            {{ file_form.hidden_tag() }}
+            <div class="form-group">
+              {{ file_form.file(class="form-control centered-input") }}
+            </div>
+            <div class="form-group">
+              {{ file_form.model_type(class="form-control centered-input") }}
+            </div>
+            <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+      </div>
     </div>
+
+    {% if results %}
+    <div id="results" class="upload-section__output-container" data-has-results="true">
+      <output form="upload-form" class="upload-section__output">
+        <header>
+          <div class="flex justify-space-betwwen align-center">
+            <h2>Results</h2>
+            <a href="{{ url_for('download_csv') }}" class="btn btn--sm">Download Report</a>
+          </div>
+          <p>{{ results.smiles }}</p>
+        </header>
+
+        <div class="upload-section__output-content">
+          <div class="upload-section__output-img-section">
+            <div class="upload-section__output-img-container">
+              <img src="data:image/png;base64, {{ results.image }}" alt="Molecule">
+            </div>
+            <div class="upload-section__output-img-container">
+              <img src="data:image/png;base64, {{ results.adImage }}" alt="Applicability Domain">
+            </div>
+          </div>
+
+          <table class="upload-section__output-table">
+            <tr>
+              <th>Model used</th>
+              <th>MW (g/mol)</th>
+              <th>Activity</th>
+              <th>Confidence</th>
+              <th>AD Analysis</th>
+            </tr>
+            <tr>
+              <td>{{ results.model_type }}</td>
+              <td>{{ results.mw }}</td>
+              <td>{{ results.activity }}</td>
+              <td>{{ results.confidence }}</td>
+              <td>{{ results.ad }}</td>
+            </tr>
+          </table>
+        </div>
+      </output>
+    </div>
+    {% endif %}
   </section>
 {% endblock %}

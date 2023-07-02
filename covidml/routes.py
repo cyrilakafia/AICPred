@@ -62,7 +62,7 @@ def upload_page():
     except Exception as e:
         flash("Invalid SMILES, enter a valid SMILES to make a prediction", category="danger")
                 
-    return render_template('upload.html', title='Upload', form=form, results=results)
+    return render_template('upload.html', title='Upload', form=form, file_form=UploadFile(), results=results)
 
 
 @app.route('/upload_file', methods = ['GET', 'POST'])
