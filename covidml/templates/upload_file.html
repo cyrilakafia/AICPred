@@ -63,7 +63,7 @@
       </div>
       
 
-      {% if results %}
+      {% if all_results %}
       <div id="results" class="upload-section__output-container" data-has-results="true">
         <output form="upload-form" class="upload-section__output">
           <header>
@@ -71,16 +71,15 @@
               <h2>Results</h2>
               <a href="{{ url_for('download_csv') }}" class="btn btn--sm">Download Report</a>
             </div>
-            <p>{{ results.smiles }}</p>
           </header>
 
           <div class="upload-section__output-content">
             <div class="upload-section__output-img-section">
               <div class="upload-section__output-img-container">
-                <img src="data:image/png;base64, {{ results.image }}" alt="Molecule">
+                <img src="data:image/png;base64, #" alt="Molecule">
               </div>
               <div class="upload-section__output-img-container">
-                <img src="data:image/png;base64, {{ results.adImage }}" alt="Applicability Domain">
+                <img src="data:image/png;base64, #" alt="Applicability Domain">
               </div>
             </div>
 
@@ -92,6 +91,7 @@
                 <th>Confidence</th>
                 <th>AD Analysis</th>
               </tr>
+              {% for results in  all_results %}
               <tr>
                 <td>{{ results.model_type }}</td>
                 <td>{{ results.mw }}</td>
@@ -99,6 +99,7 @@
                 <td>{{ results.confidence }}</td>
                 <td>{{ results.ad }}</td>
               </tr>
+              {% endfor %}
             </table>
           </div>
         </output>
