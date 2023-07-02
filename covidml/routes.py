@@ -13,10 +13,9 @@ import os
 @app.route('/home')
 def home_page():
 
-    faq_list = faqs()
     contact_list = contacts()
     
-    return render_template('home.html', faqs=faq_list, contacts=contact_list)
+    return render_template('home.html', contacts=contact_list)
 
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload_page():
@@ -139,6 +138,13 @@ def upload_file_page():
 @app.route('/tutorials')
 def tutorials_page():
     return render_template('tutorials.html', title='Tutorials')
+
+@app.route('/faqs')
+def faqs_page():
+
+    faq_list = faqs()
+    
+    return render_template('faqs.html', faqs=faq_list)
 
 @app.route('/download_csv')
 def download_csv():
