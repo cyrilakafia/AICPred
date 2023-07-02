@@ -29,101 +29,12 @@
   width: clamp(10em, calc(7.5em + 10vw), 15em);
 }
 
-.faq-section {
-  display: grid;
-  gap: 0.5em;
-  padding-inline: var(--content-padding-inline);
-  padding-block: 2em;
-}
-
-.faq-section__content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-  gap: 0.75em;
-}
-
-.faq-section__card {
-  padding-block: 1em;
-  padding-inline: 1.5em;
-  background-color: #f2f2f2;
-  border-radius: 0.5em;
-  box-shadow: 2px 2px 5px #0004;
-  font-weight: var(--fw-medium);
-  text-align: left;
-  position: relative;
-
-  transition: transform 250ms;
-}
-
-.faq-section__card:hover,
-.faq-section__card:focus-visible {
-  transform: scale(1.03);
-  transition: transform 150ms;
-}
-
-.faq-section__dialog {
-  border: none;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 30em;
-  border-radius: 0.25em;
-  padding-block: 1.5em;
-  padding-inline: 1em;
-  background-color: #f2f2f2;
-  box-shadow: 2px 2px 5px 3px #0004;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .faq-section__dialog {
-    animation: show-faq-dialog 150ms ease-out;
-  }
-}
-
-@keyframes show-faq-dialog {
-  from {
-    transform: translate(-50%, calc(-50% + 2em)) scale(0.75);
-  }
-  to {
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-.faq-section__dialog::backdrop {
-  background-color: #0006;
-}
-
-.faq-section__dialog h3 {
-  font-size: clamp(1.125rem, calc(1rem + 0.75vw), 1.5rem);
-  font-weight: var(--fw-medium);
-  margin-bottom: 0.25em;
-}
-
-.faq-section__dialog button {
-  --size: 2em;
-  position: absolute;
-  top: 0.3125em;
-  right: 0.3125em;
-  width: var(--size);
-  height: var(--size);
-  border-radius: 0.5em;
-  background-color: #0000;
-  transition: background-color 150ms;
-}
-
-.faq-section__dialog button:hover,
-.faq-section__dialog button:focus-visible {
-  background-color: #ccc6;
-}
-
 .citations-section {
   display: grid;
   justify-content: center;
   text-align: center;
   padding-inline: var(--content-padding-inline);
   padding-block: 2em;
-  margin-top: clamp(2em, calc(1.5em + 3.5vw), 5em);
   margin-bottom: 1.5em;
 }
 
@@ -165,4 +76,5 @@
 .main-footer__content > address a {
   color: inherit;
   text-decoration: underline;
+  outline-color: currentColor;
 }

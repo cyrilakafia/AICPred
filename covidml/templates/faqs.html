@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+    
+{% block link %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/faqs.css') }}">
+{% endblock %}
+
+
+{% block title %}
+  Faqs
+{% endblock %}
+
+{% block content %}
+  <section class="faq-section" aria-labelledby="faq-section-title">
+    <h2 id="faq-section-title" class="section-title">Frequently Asked Questions</h2>
+
+    <ul class="faq-section__content">
+      {% for faq in faqs %}
+        <li>
+          <article class="faq-section__faq">
+            <h3>{{faq.question}}</h3>
+            <p>{{faq.answer}}</p>
+          </article>
+        </li>
+      {% endfor %}
+    </ul>
+    
+  </section>
+{% endblock %}

@@ -1,0 +1,16 @@
+.faq-section {
+  display: grid;
+  gap: 0.5em;
+  padding-inline: var(--content-padding-inline);
+  padding-block: 2em;
+}
+
+.faq-section__content {
+  display: grid;
+  gap: 1.5em;
+}
+
+.faq-section__faq h3 {
+  font-size: 1.25rem;
+  font-weight: var(--fw-medium);
+}

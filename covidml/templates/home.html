@@ -6,10 +6,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 {% endblock %}
 
-{% block script %}
-    <script src="{{ url_for('static', filename='js/home.js') }}" defer></script>
-{% endblock %}
-
 
 
 {% block title %}
@@ -25,30 +21,6 @@
 
       <a class="btn" href="/upload">Upload</a>
     </div>
-  </section>
-
-  <section class="faq-section" aria-labelledby="faq-section-title">
-    <h2 id="faq-section-title" class="section-title">Frequently Asked Questions</h2>
-
-    <div class="faq-section__content">
-      {% for faq in faqs %}
-        <button type="button" class="faq-section__card" data-target="faq-{{loop.index}}">
-          <span>{{faq.question}}</span>
-          <span class="sr-only">View Answer</span>
-        </button>
-        <dialog id="faq-{{loop.index}}" class="faq-section__dialog">
-          <article>
-            <h3>{{faq.question}}</h3>
-            <p>{{faq.answer}}</p>
-            <button type="button">
-              <img src="../static/images/icons8-close-24.png" alt="Close" class="close-image" />
-              <span class="sr-only">Close</span>
-            </button>
-          </article>
-        </dialog>
-      {% endfor %}
-    </div>
-    
   </section>
 
   <section class="citations-section" aria-labelledby="citations-section-title">
