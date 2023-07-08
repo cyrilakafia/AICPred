@@ -94,8 +94,6 @@ def upload_file_page():
                 if l.strip():
                     lines += 1
         
-        all_results = []
-        df = pd.DataFrame()
         for line in range(lines):
             with open(f.filename, 'r') as file:
                 content = file.readlines()
@@ -128,14 +126,18 @@ def upload_file_page():
                 results['confidence'] = confidence
                 results['ad'] = ad_analysis
 
-                df_temp = pd.DataFrame(all_results)
-                pd.concat([df, df_temp], axis=0)
+                if not os.path.exists('covidml/static/temp/'):
+                    os.mkdir('covidml/static/temp/')
+            
+                if os.path.exists('covidml/static/temp/results.csv'):
+                    os.remove('covidml/static/temp/results.csv')
+                
+                df = pd.DataFrame(results, index=[0])
+                df.to_csv('covidml/static/temp/results.csv', index=False)              
                                 
                 results['model_type'] = model_type
                 results['image'] = structure_img
                 results['adImage'] = ad_img
-                
-                all_results.append(results)
             
             except Exception as e:
                 flash("Invalid SMILES provided in text file", "danger")
@@ -143,10 +145,8 @@ def upload_file_page():
             
         # remove uploaded file
         os.remove(f.filename)
-            
-        os.remove('covidml/static/temp/results.csv')
-        df.to_csv('covidml/static/temp/results.csv', index=False)
-        return render_template('upload_file.html', title='Results', file_form=file_form, all_results=all_results)
+
+        return render_template('upload_file.html', title='Results', file_form=file_form, results=results)
     return render_template('upload_file.html', title='Upload File', file_form=file_form)
 
 

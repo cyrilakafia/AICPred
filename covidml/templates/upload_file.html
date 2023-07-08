@@ -10,60 +10,59 @@
 {% endblock %}
 
 {% block script %}
+    <script src="{{ url_for('static', filename='js/tabs.js') }}" defer></script>
     <script src="{{ url_for('static', filename='js/upload.js') }}" defer></script>
 {% endblock %}
 
 {% block style %}
-<style>
-.centered-input {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    width: 100%;
-  }
+  <style>
+    .centered-input {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      width: 100%;
+    }
 
-.alert {
-    display: inline-block;
-    padding: 10px;
-    background-color: #e26c70;
-    color: white;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-</style>
+    .alert {
+      display: inline-block;
+      padding: 10px;
+      background-color: #e26c70;
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }}">
-      <p>{{ message }}</p>
-    </div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
-  <section class="upload-section" aria-label="Upload SMILES">
-    <div class="upload-section__form-container">
-        <h2 class="section-title">StormPred</h2>
-        <p>Upload a text file containing compound PubChem IDs and SMILES to make a prediction.</p>
-      
-        <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_file_page') }}" aria-label="Upload" enctype="multipart/form-data">
-          {{ file_form.hidden_tag() }}
-          <div class="form-group">
-            {{ file_form.file(class="form-control centered-input") }}
-          </div>
-          <div class="form-group">
-            {{ file_form.model_type(class="form-control centered-input") }}
-          </div>
-          <button type="submit" class="btn">Submit</button>
-        </form>
-        <br>
-        <a href="{{ url_for('upload_page') }}" type="button" class="upload-section__example-btn btn">Input SMILES String</a>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        <p>{{ message }}</p>
       </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+    <section class="upload-section" aria-label="Upload SMILES">
+        <div class="upload-section__form-container">
+          <h2 class="section-title">StormPred</h2>
+          <p>Upload a text file containing compound PubChem IDs and SMILES to make a prediction.</p>
       
+          <form id="upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_file_page') }}" aria-label="Upload" enctype="multipart/form-data">
+            {{ file_form.hidden_tag() }}
+            <div class="form-group">
+              {{ file_form.file(class="form-control centered-input") }}
+            </div>
+            <div class="form-group">
+              {{ file_form.model_type(class="form-control centered-input") }}
+            </div>
+            <button type="submit" class="btn">Submit</button>
+          </form>
+        </div>
+      </div>
 
-      {% if all_results %}
+      {% if results %}
       <div id="results" class="upload-section__output-container" data-has-results="true">
         <output form="upload-form" class="upload-section__output">
           <header>
@@ -71,15 +70,16 @@
               <h2>Results</h2>
               <a href="{{ url_for('download_csv') }}" class="btn btn--sm">Download Report</a>
             </div>
+            <p> {{ results.smiles }}</p>
           </header>
 
           <div class="upload-section__output-content">
             <div class="upload-section__output-img-section">
               <div class="upload-section__output-img-container">
-                <img src="data:image/png;base64, #" alt="Molecule">
+                <img src="data:image/png;base64, {{ results.image }}" alt="Molecule">
               </div>
               <div class="upload-section__output-img-container">
-                <img src="data:image/png;base64, #" alt="Applicability Domain">
+                <img src="data:image/png;base64, {{ results.adImage }}" alt="Applicability Domain">
               </div>
             </div>
 
@@ -91,7 +91,6 @@
                 <th>Confidence</th>
                 <th>AD Analysis</th>
               </tr>
-              {% for results in  all_results %}
               <tr>
                 <td>{{ results.model_type }}</td>
                 <td>{{ results.mw }}</td>
@@ -99,11 +98,10 @@
                 <td>{{ results.confidence }}</td>
                 <td>{{ results.ad }}</td>
               </tr>
-              {% endfor %}
             </table>
           </div>
         </output>
+      </div>
       {% endif %}
-    </div>
   </section>
 {% endblock %}
