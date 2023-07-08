@@ -146,7 +146,7 @@ def upload_file_page():
         # remove uploaded file
         os.remove(f.filename)
 
-        return render_template('upload_file.html', title='Results', file_form=file_form, results=results)
+        return render_template('upload.html', title='Results', form = UploadForm(), file_form=file_form, results=results)
     return render_template('upload_file.html', title='Upload File', file_form=file_form)
 
 
