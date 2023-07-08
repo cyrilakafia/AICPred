@@ -1,2 +1,2 @@
 molecule_id,smiles,mw,activity,confidence,ad
-1983,CC(=O)NC1=CC=C(C=C1)O,151.063328528,Inactive,0.9999715,Within Domain
+54670067,C(C(C1C(=C(C(=O)O1)O)O)O)O,176.032087976,Inactive,0.9999518,Within Domain
