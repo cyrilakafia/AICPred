@@ -58,7 +58,7 @@
           <p>Enter Compound's PubChem CID and SMILES to make a prediction.</p>
           <button type="button" class="upload-section__example-btn btn btn--secondary">Use example molecule</button>
     
-          <form id="smiles-upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}" aria-label="Upload">
+          <form id="smiles-upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}?tab=smiles" aria-label="Upload">
             {{ form.hidden_tag() }}
             <div class="form-group">
               {{ form.molecule_id(class="form-control centered-input", placeholder="Molecule ID") }}
@@ -78,7 +78,7 @@
           <h2 class="section-title">StormPred</h2>
           <p>Upload a text file containing compound PubChem IDs and SMILES to make a prediction.</p>
   
-          <form id="file-upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_file_page') }}" aria-label="Upload" enctype="multipart/form-data">
+          <form id="file-upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}?tab=file" aria-label="Upload" enctype="multipart/form-data">
             {{ file_form.hidden_tag() }}
             <div class="form-group">
               {{ file_form.file(class="form-control centered-input") }}
@@ -132,6 +132,12 @@
         </div>
       </output>
     </div>
+    {% endif %}
+
+    {% if is_file_tab %}
+      <script defer>
+        window.INITIAL_TAB_INDEX = 1
+      </script>
     {% endif %}
   </section>
 {% endblock %}

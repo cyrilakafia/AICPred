@@ -3,6 +3,8 @@ class TabSystem {
   #tabs
   /** @type {HTMLElement[]} */
   #tabPanels
+  /** @type {((tab: HTMLButtonElement) => void)[]} */
+  #changeListeners
   
   /**
    * 
@@ -13,9 +15,15 @@ class TabSystem {
     if(tabs.length !== tabPanels.length) throw new Error(`Tabs and tab panels must be the same length\nTabs: ${tabs.length}\nTab panels: ${tabPanels.length}`)
     this.#tabs = tabs
     this.#tabPanels = tabPanels
+    this.#changeListeners = []
   }
 
-  init(){
+  /**
+   * 
+   * @param {string | number | HTMLButtonElement} initialTab
+   * @returns 
+   */
+  init(initialTab = 0){
     this.#tabs.forEach(t => {
       t.setAttribute("role", "tab")
       t.setAttribute("aria-selected", "false")
@@ -29,7 +37,7 @@ class TabSystem {
       p.setAttribute("data-active", "false")
     })
 
-    this.#selectTab(this.#tabs[0], false)
+    this.select(initialTab, false)
 
     return this
   }
@@ -64,16 +72,16 @@ class TabSystem {
   /**
    * 
    * @param {string | number | HTMLButtonElement} tab 
-   * @returns 
+   * @param {boolean} shouldFocus
    */
-  select(tab){
+  select(tab, shouldFocus = true){
     if(typeof tab === "number") {
       if(tab < 0 || tab > this.#tabs.length) {
         console.warn(`Invalid tab index "${tab}"`)
         return
       }
 
-      this.#selectTab(this.#tabs[tab])
+      this.#selectTab(this.#tabs[tab], shouldFocus)
     }
     else if(typeof tab === "string") {
       const selectedTab = this.#tabs.find(t => t.id === tab)
@@ -82,7 +90,7 @@ class TabSystem {
         return
       }
 
-      this.#selectTab(selectedTab)
+      this.#selectTab(selectedTab, shouldFocus)
     }
     else if(tab instanceof HTMLElement) {
       const selectedTab = this.#tabs.find(t => t === tab)
@@ -91,13 +99,26 @@ class TabSystem {
         return
       }
 
-      this.#selectTab(selectedTab)
+      this.#selectTab(selectedTab, shouldFocus)
     }
     else {
       throw new Error("Invalid tab type")
     }
     
     return this
+  }
+
+  /**
+   * 
+   * @param {(tab: HTMLButtonElement) => void} callback 
+   */
+  onChange(callback){
+    this.#changeListeners.push(callback)
+    return this
+  }
+
+  #notifyChangeListeners(tab){
+    this.#changeListeners.forEach(c => c(tab))
   }
 
   /**
@@ -118,6 +139,8 @@ class TabSystem {
       const isActive = p.id === tab.getAttribute("aria-controls")
       p.setAttribute("data-active", isActive.toString())
     })
+
+    this.#notifyChangeListeners(tab)
   }
 
   /**
