@@ -24,7 +24,12 @@ const formTabs = new TabSystem(
   Array.from(document.querySelectorAll("div[role=tabpanel]"))
 )
 
-formTabs.init()
+formTabs.onChange(tab => {
+  const queryParams = new URLSearchParams(window.location.search);
+  queryParams.set("tab", tab.id.replace("-tab", ""));
+  history.replaceState(null, null, "?"+queryParams.toString());
+})
+formTabs.init(window.INITIAL_TAB_INDEX)
 
 const outputSection = document.querySelector("#results")
 if(outputSection != null){
