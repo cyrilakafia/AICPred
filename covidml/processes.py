@@ -16,10 +16,13 @@ plt.style.use('covidml/static/stylesheet/ssass.mplstyle')
 def load_model(model_type):
     with open(f'covidml/models/{model_type}/mask1', 'rb') as file:
         mask = pickle.load(file)
-            
+
+    print("DONE LOADING MASK") 
+
     with open(f'covidml/models/{model_type}/classifier1', 'rb') as file:
         classifier = pickle.load(file)
-        
+
+    print("DONE LOADING MODEL")
     return mask, classifier
 
 def predict_activity(smiles, mask, classifier):

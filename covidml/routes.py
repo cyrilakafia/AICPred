@@ -150,7 +150,14 @@ def upload_page():
 
 @app.route('/tutorials')
 def tutorials_page():
-    return render_template('tutorials.html', title='Tutorials')
+    steps = [
+        {'title': 'Step 1', 'img': 'static/images/tutorials/1.png', 'text': 'Description of step 1...'},
+        {'title': 'Step 2', 'img': 'static/images/tutorials/2.png', 'text': 'Description of step 2...'},
+        {'title': 'Step 3', 'img': 'static/images/tutorials/3.png', 'text': 'Description of step 3...'},
+        {'title': 'Step 4', 'img': 'static/images/tutorials/4.png', 'text': 'Description of step 3...'},
+        {'title': 'Step 5', 'img': 'static/images/tutorials/5.png', 'text': 'Description of step 3...'}
+        ]
+    return render_template('tutorials.html', title='Tutorials', steps=steps)
 
 @app.route('/faqs')
 def faqs_page():
