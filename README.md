@@ -18,7 +18,7 @@ Keywords: Cytokine Storm, COVID-19, Toll-like Receptor 4 (TLR4), Machine learnin
 ### Web Server
 An AI powered web application for predicting potential anti-inflammatory compounds against the toll-like receptor 4 (TLR4) to ameliorate the Covid-19 induced cytokine storm.
 
-![Home Page](images/homepage.png)
+![Home Page](images/homepage1.png)
 <p style="text-align:center;">The home page of the web application<p>
 
 **Dependencies**  
@@ -51,5 +51,5 @@ An AI powered web application for predicting potential anti-inflammatory compoun
 
 ```
 
-![Prediction Page](images/upload.png)
+![Prediction Page](images/upload1.png)
 <p style="text-align:center;">The prediction page of the web application<p>
