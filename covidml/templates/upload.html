@@ -77,6 +77,12 @@
         <div class="upload-section__form-container">
           <h2 class="section-title">AICPred</h2>
           <p>Upload a text file containing compound PubChem IDs and SMILES to make a prediction.</p>
+
+          <p>Content of your text file should like this</p>
+          <p>'pubchem_id' tab 'SMILES'</p>
+
+          <a href="{{ url_for('download_test_file') }}" class="upload-section__example-btn btn btn--secondary">Download example molecule</a>
+
   
           <form id="file-upload-form" class="upload-section__form" method="POST" action="{{ url_for('upload_page') }}?tab=file" aria-label="Upload" enctype="multipart/form-data">
             {{ file_form.hidden_tag() }}

@@ -4,8 +4,8 @@ const smilesInput = document.querySelector("input#smiles")
 const modelTypeSelectInput = document.querySelector("select#model_type")
 
 const exampleMolecule = {
-  moleculeId: "2719",
-  smiles: "CCN(CC)CCCC(C)NC1=C2C=CC(=CC2=NC=C1)Cl",
+  moleculeId: "44205240",
+  smiles: "CCS(=O)(=O)N1CC(C1)(CC#N)N2C=C(C=N2)C3=C4C=CNC4=NC=N3",
   modelType: "XGBoost"
 }
 
