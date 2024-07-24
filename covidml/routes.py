@@ -73,7 +73,8 @@ def upload_page():
         is_file_tab = True
         if request.method == 'POST':
             f = request.files['file']
-            f.save(secure_filename(f.filename))
+            f.filename = secure_filename(f.filename)
+            f.save(f.filename)
             
             # check if file is a text file
             if f.filename.split('.')[-1] != 'txt':
@@ -151,11 +152,11 @@ def upload_page():
 @app.route('/tutorials')
 def tutorials_page():
     steps = [
-        {'title': 'Step 1', 'img': 'static/images/tutorials/1.png', 'text': 'Description of step 1...'},
-        {'title': 'Step 2', 'img': 'static/images/tutorials/2.png', 'text': 'Description of step 2...'},
-        {'title': 'Step 3', 'img': 'static/images/tutorials/3.png', 'text': 'Description of step 3...'},
-        {'title': 'Step 4', 'img': 'static/images/tutorials/4.png', 'text': 'Description of step 3...'},
-        {'title': 'Step 5', 'img': 'static/images/tutorials/5.png', 'text': 'Description of step 3...'}
+        {'title': 'Step 1', 'img': 'static/images/tutorials/1_1.png', 'text': 'Description of step 1...'},
+        {'title': 'Step 2', 'img': 'static/images/tutorials/2_2.png', 'text': 'Description of step 2...'},
+        {'title': 'Step 3', 'img': 'static/images/tutorials/3_3.png', 'text': 'Description of step 3...'},
+        {'title': 'Step 4', 'img': 'static/images/tutorials/4_4.png', 'text': 'Description of step 3...'},
+        {'title': 'Step 5', 'img': 'static/images/tutorials/5_5.png', 'text': 'Description of step 3...'}
         ]
     return render_template('tutorials.html', title='Tutorials', steps=steps)
 
@@ -169,3 +170,7 @@ def faqs_page():
 @app.route('/download_csv')
 def download_csv():
     return send_file('static/temp/results.csv', as_attachment=True)
+
+@app.route('/download_test_file')
+def download_test_file():
+    return send_file('static/test.txt', as_attachment=True)
