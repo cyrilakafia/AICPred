@@ -11,6 +11,25 @@
     {% block script %}
     {% endblock %}
     
+    <style>
+      .main-logo h1 {
+        display: flex;
+        align-items: center;
+        margin: 0;
+      }
+  
+      .main-logo a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+      }
+  
+      .logo-image {
+        height: 120px;
+        margin-right: 0px;
+      }
+    </style>
 
     {% block style %}
     {% endblock %}
@@ -23,7 +42,10 @@
       <div class="main-header__content">
         <div class="main-logo">
           <h1>
-            <a href="/" {% if request.path == '/' %}aria-current="page"{% endif %}>AICPred</a>
+            <a href="/" {% if request.path == '/' %}aria-current="page"{% endif %}>
+              <img src="static/images/TLR4_image.png" alt="Logo" class="logo-image">
+              AICPred
+            </a>
           </h1>
         </div>
   
